@@ -1,4 +1,6 @@
 import Movie from "../models/movies.js";
+import mongoose from "mongoose";
+const ObjectId = mongoose.Types.ObjectId;
 
 const MoviesController = {
   // Get all movies (with pagination & filters)
@@ -20,6 +22,39 @@ const MoviesController = {
       res.status(500).json({ error: "Failed to fetch movies" });
     }
   },
+
+  getMovieById(req, res) {
+    const id = req.params.id || {};
+    Movie.aggregate([
+      {
+        $match: {
+          _id: new ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: "reviews",
+          localField: "_id",
+          foreignField: "movieId",
+          as: "reviews",
+        },
+      },
+    ])
+      .then((movie) => {
+        if (!movie) {
+          res.status(404).json({ error: "not found" });
+          return;
+        }
+        res.json(movie);
+      })
+      .catch((e) => {
+        res.status(500).json({ error: e });
+      });
+  },
+
+  getRatings(req, res) {
+
+  }
 };
 
 export default MoviesController;
