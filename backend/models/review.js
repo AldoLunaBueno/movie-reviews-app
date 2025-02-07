@@ -8,7 +8,11 @@ const reviewSchema = mongoose.Schema({
         name: {type: String, required: true}
     },
     review: {type: String, required: true},
-    date: {type: Date, default: Date.now}
+    date: {
+        type: Date, 
+        default: Date.now,
+        immutable: true, // Prevents users from modifying the date
+    }
 })
 
 const Review = mongoose.model("Review", reviewSchema)
