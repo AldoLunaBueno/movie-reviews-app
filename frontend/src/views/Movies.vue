@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import MovieService from '@/services/MovieService';
 export default {
   name: 'Movies',
   data() {
@@ -56,30 +57,9 @@ export default {
     this.getRatings();
   },
   methods: {
-    getMovies() {
-      this.movies = [
-        {
-          _id: '3',
-          title: 'Matrix',
-          poster: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg',
-          rated: 'AG',
-          plot: 'Best movie',
-        },
-        {
-          _id: '4',
-          title: 'Matrix 2',
-          poster: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg',
-          rated: 'AG',
-          plot: 'Best movie',
-        },
-        {
-          _id: '5',
-          title: 'Matrix 3',
-          poster: 'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg',
-          rated: 'AG',
-          plot: 'Best movie',
-        },
-      ];
+    async getMovies() {
+      const moviesData = await MovieService.getMovies()
+      this.movies = moviesData.movies
     },
     getRatings() {
       this.ratings = ['AO', 'G', 'GP'];

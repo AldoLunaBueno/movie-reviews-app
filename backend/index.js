@@ -6,13 +6,9 @@ import reviewRoutes from "./routes/reviews.js"
 
 connectDB();
 const app = express();
-app.listen(3000, "0.0.0.0");
+app.listen(3000, "localhost");
 app.use(
-  cors({
-    origin: "???",
-    methods: ["GET", "POST", "DELETE", "UPDATE"],
-    credentials: true,
-  })
+  cors()
 );
 app.use(express.json());
 app.use("/api/v1/movies", movieRoutes);
