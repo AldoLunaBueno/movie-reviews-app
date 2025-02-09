@@ -5,4 +5,8 @@ export default class MovieService {
     const res = await axios.get(`http://localhost:3000/api/v1/movies?${by}=${query}&page=${page}`);
     return res.data;
   }
+  static async getRatings() {
+    const res = await axios.get('http://localhost:3000/api/v1/movies/ratings');
+    return res.data
+  }
 }

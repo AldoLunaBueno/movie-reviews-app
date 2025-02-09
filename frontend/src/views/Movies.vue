@@ -41,15 +41,15 @@
 </template>
 
 <script>
-import MovieService from '@/services/MovieService';
+import MovieService from "@/services/MovieService";
 export default {
-  name: 'Movies',
+  name: "Movies",
   data() {
     return {
       movies: [],
       ratings: [],
-      titleToSearch: '',
-      ratingToSearch: '',
+      titleToSearch: "",
+      ratingToSearch: "",
     };
   },
   created() {
@@ -58,18 +58,25 @@ export default {
   },
   methods: {
     async getMovies() {
-      const moviesData = await MovieService.getMovies()
-      this.movies = moviesData.movies
+      const moviesData = await MovieService.getMovies();
+      this.movies = moviesData.movies;
+      console.log("get movies")
     },
-    getRatings() {
-      this.ratings = ['AO', 'G', 'GP'];
+    async getRatings() {
+      this.ratings = await MovieService.getRatings();
+      console.log("get ratings")
     },
-    filterMovies(type) {
-      if (type === 'title') {
-        console.log(this.titleToSearch);
-      } else {
-        console.log(this.ratingToSearch);
+    async filterMovies(type) {
+      let moviesData = null;
+      switch (type) {
+        case "title":
+          moviesData = await MovieService.getMovies(this.titleToSearch, type);
+          break;
+        case "rated":
+          moviesData = await MovieService.getMovies(this.ratingToSearch, type);
+          break;
       }
+      this.movies = moviesData.movies;
     },
   },
 };

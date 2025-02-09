@@ -52,9 +52,14 @@ const MoviesController = {
       });
   },
 
-  getRatings(req, res) {
-
-  }
+  async getRatings(req, res) {
+    try {
+      const ratings = await Movie.distinct("rated");
+      res.json(ratings);
+    } catch (e) {
+      res.status(500).json({ error: e });
+    }
+  },
 };
 
 export default MoviesController;
