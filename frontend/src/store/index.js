@@ -1,14 +1,23 @@
 import { createStore } from 'vuex';
 
-export default createStore({
+export const store = createStore({
   state: {
-  },
-  getters: {
+    user: {
+      id: '',
+      name: '',
+    },
   },
   mutations: {
+    connect(state, data) {
+      // here you make an API call to authenticate the user
+      state.user.id = data.id;
+      state.user.name = data.name;
+    },
+    disconnect(state) {
+      state.user.id = '';
+      state.user.name = '';
+    },
   },
-  actions: {
-  },
-  modules: {
-  },
+  actions: {},
+  modules: {},
 });

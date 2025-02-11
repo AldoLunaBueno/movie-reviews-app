@@ -61,8 +61,8 @@ export default {
       this.movie = movieData[0];
     },
     getFormattedDate(date) {
-      return moment(date).format('Do MMMM YYYY')
-    }
+      return moment(date).format('Do MMMM YYYY');
+    },
   },
 };
 </script>
